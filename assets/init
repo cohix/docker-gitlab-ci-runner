@@ -24,6 +24,9 @@ if [ ! -e ${DATA_DIR}/.ssh/id_rsa -o ! -e ${DATA_DIR}/.ssh/id_rsa.pub ]; then
   sudo -u gitlab_ci_runner -H ssh-keygen -t rsa -N "" -f ${DATA_DIR}/.ssh/id_rsa
 fi
 
+# Disable strict host checking
+sudo echo -e "Host *\n\tStrictHostKeyChecking no" >> ${DATA_DIR}/.ssh/config
+
 # make sure the ssh keys have the right ownership and permissions
 chmod 600 ${DATA_DIR}/.ssh/id_rsa ${DATA_DIR}/.ssh/id_rsa.pub
 chmod 700 ${DATA_DIR}/.ssh
